@@ -46,7 +46,7 @@ The AWS Automated File Processing System is a cloud-based solution designed to t
    - **Submit Button**: Initiates the processing workflow.
 
 2. **File Storage**
-   - Files are uploaded to an S3 bucket at the path `[BucketName]/[InputFile].Input`.
+   - Files are uploaded to an S3 bucket at the path `[BucketName]/[InputFile].Input`
 
 3. **Metadata Storage**
    - DynamoDB table schema includes:
