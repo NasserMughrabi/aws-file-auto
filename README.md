@@ -2,23 +2,6 @@
 
 The AWS Automated File Processing System is a cloud-based solution designed to to provide a fully automated system for processing and storing user-submitted data (text and files). By utilizing AWS services such as S3, API Gateway, Lambda, DynamoDB, and EC2, this system minimizes manual intervention, optimizes resource usage, and ensures efficient data handling and processing. It also automates resource provisioning and cleanup tasks, ensuring high performance and reliability.
 
-
-## How it works
-
-1. Through React UI, the user inputs text, uploads a text file, and clicks submit.
-2. At submit, the system does the following:
-    1. Uploads the text file to the S3 bucket provisioned on AWS
-    2. Sends the text input along with the path to the uploaded file in the S3 bucket to DynamoDB through a REST API built using API Gateway and Lambda. DynamoDb table would look as follows: text_input: text, s3_input_file_path: s3://bucket-name/input/filename
-    3. DynamoDb streams will be listening to table inserts. At new insert, DynamoDB streams will trigger a lambda function to launch a new EC2 instance which will do the following
-        1. Copies the input file from the S3 bucket using its path from DynamoDB (s3_input_file_path)
-        2. Copies a script.py file that I manually uploaded to S3. This script has the functionality that we want EC2 to run
-        3. Runs the script.py file which will do the following
-            1. read the input file
-            2. calculate the length of the text_input
-            3. append the length of the text_input to the content of the input file and save in a new file (fileId.output)
-            4. uploads the output file to S3 and store its path in the DynamoDB table to look like this: update item: text_input: text, s3_input_file_path: s3://bucket-name/input/filename, s3_output_file_path: s3://bucket-name/output/filename
-            5. EC2 will terminate itself after the above tasks have complteted
-
 ## How It Works
 
 1. **User Interaction**:
@@ -54,6 +37,8 @@ The AWS Automated File Processing System is a cloud-based solution designed to t
 - **Efficient Data Handling**: Saves processed data back to S3 and updates metadata in DynamoDB.
 
 ## Architecture
+
+![Alt text](/Users/nasser/Documents/projects/fovus/fovus-react/fileAuto.png)
 
 1. **Frontend (ReactJS Web UI)**
    - **Text Input**: For users to submit text.
