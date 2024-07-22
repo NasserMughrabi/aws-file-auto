@@ -38,7 +38,7 @@ The AWS Automated File Processing System is a cloud-based solution designed to t
 
 ## Architecture
 
-![Alt text](/Users/nasser/Documents/projects/fovus/fovus-react/fileAuto.png)
+![Alt text](fileAuto.png)
 
 1. **Frontend (ReactJS Web UI)**
    - **Text Input**: For users to submit text.
