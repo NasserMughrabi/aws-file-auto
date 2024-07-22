@@ -1,6 +1,15 @@
 # AWS Automated File Processing System
 
-The AWS Automated File Processing System is a cloud-based solution designed to to provide a fully automated system for processing and storing user-submitted data (text and files). By utilizing AWS services such as S3, API Gateway, Lambda, DynamoDB, and EC2, this system minimizes manual intervention, optimizes resource usage, and ensures efficient data handling and processing. It also automates resource provisioning and cleanup tasks, ensuring high performance and reliability.
+This System is a cloud-based solution designed to provide a fully automated system for processing and storing user-submitted data (text and files). By utilizing AWS services such as S3, API Gateway, Lambda, DynamoDB, and EC2, this system minimizes manual intervention, optimizes resource usage, and ensures efficient data handling and processing. It automates resource provisioning and cleanup tasks, ensuring high performance, reliability, cost effectivness.
+
+The system is designed to store uploaded files in S3 bucket, process them by  adjusting their content, and then stores the output file back in S3. While the core functionality focuses on simple file adjustments, it can be easily adapted to perform more complex tasks and computations. Examples of advanced processing tasks include:
+
+- **Data Transformation**: Convert file formats (e.g., CSV to JSON), perform data cleaning, or aggregate data across multiple files.
+- **Text Analysis**: Perform sentiment analysis, keyword extraction, or text summarization on text files.
+- **Image Processing**: Apply filters, resize images, or convert between image formats (e.g., PNG to JPEG).
+- **Machine Learning**: Use pre-trained models to make predictions, classify content, or detect anomalies in files.
+- **Data Enrichment**: Integrate external data sources to enhance the content of uploaded files (e.g., adding geographic information to address data).
+- **Complex Calculations**: Run simulations, compute statistical metrics, or analyze large datasets for insights.
 
 ## How It Works
 
