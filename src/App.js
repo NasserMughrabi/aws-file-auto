@@ -24,7 +24,6 @@ function App() {
   const s3 = new AWS.S3();
 
   const uploadFileToS3 = async (file) => {
-    console.log(process.env.REACT_APP_S3_BUCKET_NAME);
     const params = {
       Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
       Key: file.name,
@@ -34,9 +33,28 @@ function App() {
 
     try {
       await s3.upload(params).promise();
+      const s3Path = `s3://${params.Bucket}/${params.Key}`;
+      return s3Path;
     } catch (err) {
       console.error("Error uploading file:", err);
       throw err;
+    }
+  };
+
+  const uploadFileMetadataToDynamoDB = async (s3Path) => {
+    try {
+      await fetch(`${process.env.REACT_APP_Gateway_API_URL}/upload-file`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text_input: text,
+          s3_input_file_path: s3Path,
+        }),
+      });
+    } catch (error) {
+      console.log("Error uploading file metadata: ", error);
     }
   };
 
@@ -63,11 +81,12 @@ function App() {
     e.preventDefault();
     if (file) {
       try {
-        await uploadFileToS3(file);
-        alert("File uploaded successfully!");
+        const s3Path = await uploadFileToS3(file);
+        await uploadFileMetadataToDynamoDB(s3Path);
+        alert("File and metadata uploaded successfully!");
       } catch (err) {
         console.error("Error uploading file:", err);
-        alert("Error uploading file: " + err.message);
+        alert("Error uploading file/metadata: " + err.message);
       }
     }
   };
@@ -109,7 +128,7 @@ function App() {
           </Button>
         </form>
         <Text mt={4} fontSize="lg">
-          [InputFile].input content: {fileContent}
+          Content: {fileContent}
         </Text>
       </Box>
     </Box>
