@@ -6,7 +6,7 @@ The system is designed to store uploaded files in S3 bucket, process them by  ad
 
 ## Architecture
 
-![Alt text](fileAuto.png)
+![Alt text](arch.jpeg)
 
 1. **Frontend (ReactJS Web UI)**
    - **Text Input**: For users to submit text.

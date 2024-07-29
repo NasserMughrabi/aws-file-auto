@@ -43,20 +43,48 @@ function App() {
 
   const uploadFileMetadataToDynamoDB = async (s3Path) => {
     try {
-      await fetch(`${process.env.REACT_APP_Gateway_API_URL}/upload-file`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          text_input: text,
-          s3_input_file_path: s3Path,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_Gateway_API_URL}/upload-file`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text_input: text,
+            s3_input_file_path: s3Path,
+          }),
+        }
+      );
+      // const data = await response.json();
+      // const fileId = data.item_id;
+      // await new Promise(resolve => setTimeout(resolve, 240000));
+      // await fetchFileContentFromS3(`output/${fileId}.output`);
     } catch (error) {
       console.log("Error uploading file metadata: ", error);
     }
   };
+
+  // const fetchFileContentFromS3 = async (fileKey) => {
+  //   try {
+  //     if (!fileKey) {
+  //       throw new Error("File key is not set.");
+  //     }
+
+  //     // Fetch the file directly from S3
+  //     const params = {
+  //       Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
+  //       Key: fileKey,
+  //     };
+
+  //     const data = await s3.getObject(params).promise();
+  //     const fileData = new TextDecoder("utf-8").decode(data.Body);
+
+  //     setFileContent(fileData);
+  //   } catch (error) {
+  //     console.log("Error fetching file content: ", error);
+  //   }
+  // };
 
   const handleTextChange = (e) => {
     setText(e.target.value);
